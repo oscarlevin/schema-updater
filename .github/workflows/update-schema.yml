@@ -12,6 +12,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: use Node.js
+        uses: actions/setup-node@v4
         with:
-          repository: pretext/pretext
+          node-version: '22'
+
+      - name: clone relax-ng-to-typescript
+        run: git clone https://github.com/siefkenj/relax-ng-to-typescript.git
+
+      - name: change to relax-ng-to-typescript
+        run: cd relax-ng-to-typescript
+
+      - name: install dependencies
+        run: npm install
+
+      - name: fetch latest schema
+        run: wget https://raw.githubusercontent.com/PreTeXtBook/pretext/refs/heads/master/schema/pretext.rng
+
+      - name: build schema
+        run: npx vite-node scripts/generate-typescript.ts -- -g pretext.rng -o ./
+
+      - name: copy output to destination
+        run: |
+          cp -f ./generated-grammar.ts ../packages/jsx/src/assets/generated-grammar.ts
+          cp -f ./generated-types.ts ../packages/jsx/src/assets/generated-types.ts
+
+      - name: remove relax-ng-to-typescript
+        run: |
+          cd ..
+          rm -rf relax-ng-to-typescript
