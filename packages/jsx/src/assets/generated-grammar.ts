@@ -132,7 +132,7 @@ export const jsonGrammar = {
             "textChildrenAllowed": true
         },
         "ElementPrograms": {
-            "type": "element",
+            "type": "element-test",
             "name": "programs",
             "attributes": {
                 "language": {
