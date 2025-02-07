@@ -45,7 +45,7 @@ jobs:
             git add .
             git commit -m "Update relaxng schema"
             git push --set-upstream origin schema-update-action
-            gh pr create --fill
+            gh pr create --fill || true
           }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
