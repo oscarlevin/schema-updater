@@ -24,7 +24,7 @@ jobs:
           git config user.name "${{ github.actor }} via GitHub Actions"
           git config user.email "${{ github.actor }}@github_actions.no_reply"
           git checkout -b schema-update-action
-          git pull origin schema-update-action
+          git pull origin schema-update-action || true
 
       - name: generate new schema
         run: |
