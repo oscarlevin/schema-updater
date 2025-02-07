@@ -39,8 +39,8 @@ jobs:
       - name: check for changes
         run: |
           git checkout -b schema-update
-          git add .
           git diff --quiet || {
+            git add .
             git commit -m "Update relaxng schema"
             git push --set-upstream origin schema-update
             gh pr create --fill
