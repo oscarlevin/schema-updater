@@ -1,0 +1,17 @@
+# This workflow will checkout a repo for building schema to typescript,
+# then fetch the latest schema from pretext, and build it.  It will then create a PR for the change (if there are any).
+
+name: Update Schema
+on:
+  schedule:
+    - cron: '0 0 * * 0' # every Sunday at midnight
+  workflow_dispatch:
+
+jobs:
+  update-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          repository: pretext/pretext
