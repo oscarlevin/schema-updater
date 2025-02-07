@@ -43,3 +43,16 @@ jobs:
         run: |
           cd ..
           rm -rf relax-ng-to-typescript
+
+      - name: setup git config
+        run: |
+          git config user.name "${{ github.actor }} via GitHub Actions"
+          git config user.email "${{ github.actor }}@github_actions.no_reply"
+
+      - name: check for changes
+        run: |
+          git checkout -b schema-update
+          git add .
+          git diff --quiet || git commit -m "Update relaxng schema"
+          git push --set-upstream origin schema-update
+          gh pr create --fill
