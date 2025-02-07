@@ -40,6 +40,8 @@ jobs:
         run: |
           git checkout -b schema-update
           git add .
-          git diff --quiet || git commit -m "Update relaxng schema"
-          git push --set-upstream origin schema-update
-          gh pr create --fill
+          git diff --quiet || {
+            git commit -m "Update relaxng schema"
+            git push --set-upstream origin schema-update
+            gh pr create --fill
+          } 
