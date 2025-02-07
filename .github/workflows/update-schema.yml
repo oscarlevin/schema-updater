@@ -45,3 +45,5 @@ jobs:
             git push -f --set-upstream origin schema-update-action
             gh pr create --fill
           }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
