@@ -24,10 +24,15 @@ jobs:
           git config user.name "${{ github.actor }} via GitHub Actions"
           git config user.email "${{ github.actor }}@github_actions.no_reply"
           git checkout -b schema-update-action
-          git ls-remote --exit-code origin schema-update-action && {
-            git fetch origin schema-update-action
-            git reset --hard origin/schema-update-action
+          # Ensure the branch exists on the remote
+          git ls-remote --exit-code origin schema-update-action || {
+            git push -u origin schema-update-action
           }
+          # Fetch the branch from the remote
+          git fetch origin schema-update-action
+          git reset --hard origin/schema-update-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: generate new schema
         run: |
